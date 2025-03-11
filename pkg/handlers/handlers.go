@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/Ryanwalshe/flashcard_app/pkg/config"
+	"github.com/Ryanwalshe/flashcard_app/pkg/models"
 	"github.com/Ryanwalshe/flashcard_app/pkg/render"
 )
 
@@ -28,10 +29,16 @@ func NewHandlers(r *Respository) {
 
 // Home is the handler for the home page
 func (m *Respository) Home(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "home.page.tmpl")
+	render.RenderTemplate(w, "home.page.tmpl", &models.TemplateData{})
 }
 
 // About is the handler for the about page
 func (m *Respository) About(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "about.page.tmpl")
+	// perform some logic
+	stringMap := make(map[string]string)
+	stringMap["test"] = "hello again"
+
+	render.RenderTemplate(w, "about.page.tmpl", &models.TemplateData{
+		StringMap: stringMap,
+	})
 }
